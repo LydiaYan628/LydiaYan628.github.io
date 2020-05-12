@@ -1,1 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>NETFLIX category 2019</title>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- include the d3 library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3-scale-radial.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+ <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <!-- font-family: 'Bebas Neue', cursive; -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- font-family: 'Montserrat', sans-serif; -->
+  </head>
+  <body>
+    <div id="cover">
+      <div id="topBar">
+        <ul>
+          <li id="backToTop"><a href="#cover">NETFLIX</a></li>
+          <li>
+            <div class="dropdown">
+              <a href="#hi">Credit</a>
+              <div class="dropdown-content">
+                <p><a href="https://www.kaggle.com/shivamb/netflix-shows/metadata"><b>Shivam Bansal</b></a></p>
+                <p><a href="https://mitpress.mit.edu/books/technologies-vision"><b>Technologies of Vision: The War Between Data and Images</b></a></p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <a href="#hi">About Me</a>
+              <div class="dropdown-content">
+                <p><b>Lydia Yan</b><br>zy1562@nyu.edu</p>
+              </div>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">What to see next</a>
+            <div class="dropdown-content">
+              <a href="#worldPage">World</a>
+              <a href="#TVMoviePage">TV Shows & Movies</a>
+              <a href="#releasedYearPage">Released Year</a>
+              <a href="#ratePage">Age Rate</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="explanation">
+        <p>
+          Netflix is a streaming media company that has a huge impact on the world media industry, there are over 167 million subscribers all around the globe which made it the king of streaming. The company is famous for its great contents and it is attracting more and more audiences through its well-established programs.
+
+          <br><br>Netflix is attracting more and more people through its recommendation system which brings up a better user experience. As the book <i>Technologies of Vision: The War Between Data and Images</i> by Steve F. Anderson introduces, Netflix aims to take the user viewing history as the database to analyze the aesthetic preferences of its users.
+
+          <br><br>This visualization is to show you what you may see next according to the video category. It will stand on different viewpoints, and show you a simplified function of the recommendation system.
+        </p>
+      </div>
+
+      <div id="mainTitle">
+        <p id="bigTitle">NETFLIX 2019</p>
+        <p id=secondaryTitle>WHAT TO SEE NEXT</p>
+      </div>
+
+      <div id="pageGuide">
+        <a href="#worldPage"><img src="image/worldShot.png" alt="world" class="pageGuideImage" id="pageGuide1"></a>
+
+        <a href="#TVMoviePage"><img src="image/tvmShot.png" alt="TVM" class="pageGuideImage" id="pageGuide2"></a>
+        <a href="#releasedYearPage"><img src="image/yearShot.png" alt="year" class="pageGuideImage" id="pageGuide3"></a>
+        <a href="#ratePage"><img src="image/rateShot.png" alt="rate" class="pageGuideImage" id="pageGuide4"></a>
+      </div>
+    </div>
+
+
+    <!-- main d3 visualization -->
+    <div id="worldPage">
+      <div class="worldText">
+        <p>This data visualization represents the production country of each show in the dataset. <br><br>According to the amount of the shows each country has produced, the color of the country continent varies from white to red, the country with no production record is colored black. You can check on each country's most produced category by hover over each country's shape.</p>
+      </div>
+      <!-- <div id="selectionWorldBar">
+        <input type="checkbox" class="checkboxworld" name="Action & Adventure" id="acAndAd1">__Action & Adventure
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Anime" id="Anime1">__Anime
+        <br>
+        <input type="checkbox" class="checkboxworld" name="British TV Shows" id="British1">__British
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Children & Family Movies" id="Children1">__Children
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Classic" id="Classic1">__Classic
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Comedies" id="Comedies1">__Comedies
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Crime TV Shows" id="Crime1">__Crime
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Cult Movies" id="Cult1">__Cult
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Documentaries" id="Documentaries1">__Documentaries
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Dramas" id="Dramas1">__Dramas
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Faith & Spirituality" id="Faith1">__Faith
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Horror" id="Horror1">__Horror
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Independent" id="Independent1">__Independent
+        <br>
+        <input type="checkbox" class="checkboxworld" name="International" id="International1">__International
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Kids' TV" id="Kid1">__Kid
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Korean TV Shows" id="Korean1">__Korean
+        <br>
+        <input type="checkbox" class="checkboxworld" name="LGBTQ Movies" id="LGBTQ1">__LGBTQ
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Movies" id="Movies1">__Movies
+        <br>
+        <input type="checkbox" class="checkboxworld" name="Music & Musicals" id="Music1">__Music
+        <br>
+        <input type="checkbox" class="checkbox" name="Reality TV" id="Reality1">__Reality
+        <br>
+        <input type="checkbox" class="checkbox" name="Romantic" id="Romantic1">__Romantic
+        <br>
+        <input type="checkbox" class="checkbox" name="Sci-Fi & Fantasy" id="Sci-Fi1">__Sci-Fi
+        <br>
+        <input type="checkbox" class="checkbox" name="Science & Nature TV" id="Science1">__Science
+        <br>
+        <input type="checkbox" class="checkbox" name="Spanish-Language TV Shows" id="Spanish1">__Spanish
+        <br>
+        <input type="checkbox" class="checkbox" name="Sports Movies" id="Sports1">__Sports
+        <br>
+        <input type="checkbox" class="checkbox" name="Stand-Up Comedy" id="Stand-up1">__Stand-up
+        <br>
+        <input type="checkbox" class="checkbox" name="TV Mysteries" id="Mysteries1">__Mysteries
+        <br>
+        <input type="checkbox" class="checkbox" name="TV Shows" id="TVShows1">__TVShows
+        <br>
+        <input type="checkbox" class="checkbox" name="Thrillers" id="Thrillers1">__Thrillers
+        <br>
+      </div> -->
+
+
+
+
+    </div>
+
+    <div id="TVMoviePage">
+      <div class="tvmText">
+        <p>This data visualization reveals the categories of Netflix shows by divide the shows into two section: TV Shows and Movies.<br><br>
+        According to <a href="https://flixable.com/netflix-museum/">Flixable</a>, Netflix show gallery, the total amount of TV Shows and Movies have decreased in 2019 comaring to 2018. While TV Shows increased and movies decreased, the movies avaliable on Netflix are still greater than the number of TV Shows.</p>
+      </div>
+    </div>
+
+    <div id="releasedYearPage">
+      <div class="yearText">
+        <p>According to the dataset, the shows avaliable on Netflix can date back to 1925. This graph visualizes the show categorized in different years. <br><br>
+          Click on the category checkbox above to find out more.
+      </p>
+      </div>
+      <div id="selectionBar">
+        <input type="checkbox" class="checkbox" name="Action & Adventure" id="acAndAd">____Action & Adventure
+        <br>
+        <input type="checkbox" class="checkbox" name="Anime" id="Anime">____Anime
+        <br>
+        <input type="checkbox" class="checkbox" name="British TV Shows" id="British">____British
+        <br>
+        <input type="checkbox" class="checkbox" name="Children & Family Movies" id="Children">____Children
+        <br>
+        <input type="checkbox" class="checkbox" name="Classic" id="Classic">____Classic
+        <br>
+        <input type="checkbox" class="checkbox" name="Comedies" id="Comedies">____Comedies
+        <br>
+        <input type="checkbox" class="checkbox" name="Crime TV Shows" id="Crime">____Crime
+        <br>
+        <input type="checkbox" class="checkbox" name="Cult Movies" id="Cult">____Cult
+        <br>
+        <input type="checkbox" class="checkbox" name="Documentaries" id="Documentaries">____Documentaries
+        <br>
+        <input type="checkbox" class="checkbox" name="Dramas" id="Dramas">____Dramas
+        <br>
+        <input type="checkbox" class="checkbox" name="Faith & Spirituality" id="Faith">____Faith
+        <br>
+        <input type="checkbox" class="checkbox" name="Horror" id="Horror">____Horror
+        <br>
+        <input type="checkbox" class="checkbox" name="Independent" id="Independent">____Independent
+        <br>
+        <input type="checkbox" class="checkbox" name="International" id="International">____International
+        <br>
+        <input type="checkbox" class="checkbox" name="Kids' TV" id="Kid">____Kid
+        <br>
+        <input type="checkbox" class="checkbox" name="Korean TV Shows" id="Korean">____Korean
+        <br>
+        <input type="checkbox" class="checkbox" name="LGBTQ Movies" id="LGBTQ">____LGBTQ
+        <br>
+        <input type="checkbox" class="checkbox" name="Movies" id="Movies">____Movies
+        <br>
+        <input type="checkbox" class="checkbox" name="Music & Musicals" id="Music">____Music
+        <br>
+        <input type="checkbox" class="checkbox" name="Reality TV" id="Reality">____Reality
+        <br>
+        <input type="checkbox" class="checkbox" name="Romantic" id="Romantic">____Romantic
+        <br>
+        <input type="checkbox" class="checkbox" name="Sci-Fi & Fantasy" id="Sci-Fi">____Sci-Fi
+        <br>
+        <input type="checkbox" class="checkbox" name="Science & Nature TV" id="Science">____Science
+        <br>
+        <input type="checkbox" class="checkbox" name="Spanish-Language TV Shows" id="Spanish">____Spanish
+        <br>
+        <input type="checkbox" class="checkbox" name="Sports Movies" id="Sports">____Sports
+        <br>
+        <input type="checkbox" class="checkbox" name="Stand-Up Comedy" id="Stand-up">____Stand-up
+        <br>
+        <input type="checkbox" class="checkbox" name="TV Mysteries" id="Mysteries">____Mysteries
+        <br>
+        <input type="checkbox" class="checkbox" name="TV Shows" id="TVShows">____TVShows
+        <br>
+        <input type="checkbox" class="checkbox" name="Thrillers" id="Thrillers">____Thrillers
+        <br>
+      </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <div id="ratePage">
+      <div class="rateText">
+        <p>This data visualization represents the age rating of Netflix shows.
+        <br><br>The pie chart represent all the shows avaliable on Netflix in 2019. <br>The angle of the sectors represent the portion of each age rating. <br>The colored area is the category that takes up the most space in the corresponding age rating. <br>Comparing between the radius of the black circle and the radius of the colored section, you can see the exact portion of each most categorized shows. <br>Hover to see more details.</p>
+      </div>
+    </div>
+
+
+      <div class="tooltip">    </div>
+        <div class="tooltip1">    </div>
+        <div class="tooltip2">    </div>
+    <!-- our main script: -->
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
