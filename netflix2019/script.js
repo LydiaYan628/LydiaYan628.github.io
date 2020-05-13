@@ -894,8 +894,8 @@ function ready(error, world, names) {
           enteringElementGroups
           .on("mouseover",function(d,i){
             tooltip2.classed("hidden", false)
-                   .style("top", (d3.event.pageY) + "px")
-                   .style("left", (d3.event.pageX -10) + "px")
+                   .style("top", (d3.event.pageY+15) + "px")
+                   .style("left", (d3.event.pageX -15) + "px")
                    .html(d.listed_in+" --- "+d.title)
             // let mouseInYear=d3.mouse(yearviz.node())
             // yearTextElement
